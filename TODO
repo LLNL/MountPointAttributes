@@ -1,0 +1,34 @@
+2011-06-17  Dong H. Ahn <ahn1@llnl.gov>
+	* The current support of Cray Data Virtualization Service
+	needs to be expanded. We currently assumes a path served by
+	a dvs is globally unique and thus use a URI format of
+	dvs://local_path. Two issues: 
+        1) even if the assumption is true, this string is not globally 
+        unique when our module is used in a tool that has a component 
+        running on a log-in node. The component on the log-in node will 
+        get a fully qualified URI like nfs://abc.edf.gov/exported_path.
+	2) the assumption can be broken. E.g., There could be more than
+	one shared root node is involved for an allocation. (Though I
+        have not seen the evidence of this.)
+
+	A solution I am thinking of is to put a logic that can do
+	double lookup to peal the virtualization done by DVS. E.g., 
+	to build a mount point map, the module can copy over 
+        the /proc/mounts file from a corresponding DVS server and 
+        use to peel the virtualization. The DVS server infomation
+	is available as part of mount point option.
+
+	So far, I confirmed that ssh can be done to a SIO node from
+        a CN with some authentication settings.  But I still have 
+	to understand that what it means to have multiple DVS servers
+	serving dvs mount for failover-failback; parallel striping
+	and etc. My current thought is that it would suffice to 
+	copy the mounts file from the first DVS server because
+	each file is likely served by a unique underlying file system
+	like PanFS, NFS or parallel file systems. (though they
+	are served through multiple DVS servers for various reasons.)
+	Hopefully, Cray does not have a configuration where they
+	have more than one shared root servers. 
+	
+	All to-be-investigated items.
+
