@@ -34,7 +34,7 @@ test001_recursive_walk_remote_SOURCES    = test001_recursive_walk_remote.C \
 				           recursive_check.C
 test001_recursive_walk_remote_CFLAGS     = $(AM_CFLAGS) 
 test001_recursive_walk_remote_CXXFLAGS   = $(AM_CXXFLAGS) 
-test001_recursive_walk_remote_LDFLAGS    = -L$(top_srcdir)/src
+test001_recursive_walk_remote_LDFLAGS    = -L../../src
 test001_recursive_walk_remote_LDADD      = -lmpattr
 
 
@@ -45,7 +45,7 @@ test002_recursive_walk_local_SOURCES     = test002_recursive_walk_local.C \
 				           recursive_check.C
 test002_recursive_walk_local_CFLAGS      = $(AM_CFLAGS) 
 test002_recursive_walk_local_CXXFLAGS    = $(AM_CXXFLAGS) 
-test002_recursive_walk_local_LDFLAGS     = -L$(top_srcdir)/src
+test002_recursive_walk_local_LDFLAGS     = -L../../src
 test002_recursive_walk_local_LDADD       = -lmpattr
 
 
@@ -55,7 +55,7 @@ test002_recursive_walk_local_LDADD       = -lmpattr
 test003_corner_path_SOURCES              = test003_corner_path.C 
 test003_corner_path_CFLAGS               = $(AM_CFLAGS) 
 test003_corner_path_CXXFLAGS             = $(AM_CXXFLAGS) 
-test003_corner_path_LDFLAGS              = -L$(top_srcdir)/src
+test003_corner_path_LDFLAGS              = -L../../src
 test003_corner_path_LDADD                = -lmpattr
 
 
@@ -65,7 +65,7 @@ test003_corner_path_LDADD                = -lmpattr
 test004_hardlink_path_SOURCES            = test004_hardlink_path.C 
 test004_hardlink_path_CFLAGS             = $(AM_CFLAGS) 
 test004_hardlink_path_CXXFLAGS           = $(AM_CXXFLAGS) 
-test004_hardlink_path_LDFLAGS            = -L$(top_srcdir)/src
+test004_hardlink_path_LDFLAGS            = -L../../src
 test004_hardlink_path_LDADD              = -lmpattr
 
 
@@ -75,7 +75,7 @@ test004_hardlink_path_LDADD              = -lmpattr
 test005_stress_union_fs_SOURCES            = test005_stress_union_fs.C 
 test005_stress_union_fs_CFLAGS             = $(AM_CFLAGS) 
 test005_stress_union_fs_CXXFLAGS           = $(AM_CXXFLAGS) 
-test005_stress_union_fs_LDFLAGS            = -L$(top_srcdir)/src
+test005_stress_union_fs_LDFLAGS            = -L../../src
 test005_stress_union_fs_LDADD              = -lmpattr
 
 EXTRA_DIST                                = test.txt

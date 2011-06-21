@@ -1,21 +1,22 @@
 [CONFIGURATION]
-    % ./bootstrap 
-    % ./configure --prefix=<your install path>
+    % mkdir <platform> (like RHEL6_x86_64_ib)
+    % cd <platform>
+    % ../configure --prefix=<your install path>
 
     
     For Blue Gene /P Compute Node: 
-    %./configure CXX=bgxlC --prefix=<your install path>
+    % configure CXX=bgxlC --prefix=<your install path>
     Note that you should not use bgxlC when this module
     is run on the I/O Nodes of Blue Gene
 
 
     For Blue Gene /L Compute Node:
-    %./configure CXX=bgxlC LDFLAGS="-lnss_files -lnss_dns -lresolv -lc -lnss_files -lnss_dns -lresolv" --prefix=<your install path>
+    % configure CXX=bgxlC LDFLAGS="-lnss_files -lnss_dns -lresolv -lc -lnss_files -lnss_dns -lresolv" --prefix=<your install path>
 
 
     For Cray XT/XE Compute Node
     % module load gcc/4.4.2 #or whatever the right gcc version for CN
-    %./configure CXX=CC --prefix=<your install path> --disable-shared
+    % configure CXX=CC --prefix=<your install path> --disable-shared
    
 
 [BUILD and INSTALLATION]
