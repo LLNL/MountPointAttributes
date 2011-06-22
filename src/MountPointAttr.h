@@ -34,7 +34,7 @@ extern "C" {
 
 namespace FastGlobalFileStat {
 
-/**
+    /**
      @mainpage Fast Global File Stat (FGFS)
      @author Dong H. Ahn, Development Environment Group, Livermore Computing (LC) Division, LLNL
 
@@ -158,36 +158,37 @@ namespace FastGlobalFileStat {
      common issues.
 
      TBD
- */
+    */
+
+  namespace MountPointAttribute {
+
+    /**
+     *   \def FGFS_MOUNTS_FILE
+     *   Defines a file that has most accurate mount point info.
+     *   On Linux, the macro points to /proc/mounts that is on
+     *   the procfs. This file contains the most precious current
+     *   mount point information. Plus, procfs is served off of
+     *   memory, so it is most scalable way of getting the mount 
+     *   point information of a node.
+     */
+#   define FGFS_MOUNTS_FILE "/proc/mounts"
 
 
-/**
- *   \def FGFS_MOUNTS_FILE
- *   Defines a file that has most accurate mount point info.
- *   On Linux, the macro points to /proc/mounts that is on
- *   the procfs. This file contains the most precious current
- *   mount point information. Plus, procfs is served off of
- *   memory, so it is most scalable way of getting the mount 
- *   point information of a node.
- */
-#define FGFS_MOUNTS_FILE "/proc/mounts"
+    /** \def FGFS_ALT_MOUNTS_FILE
+     *   Defines an alternative file that contains the mount point
+     *   info. On Linux, if /proc/mounts is not available for some
+     *   reason, this macro will allow to fall back to /etc/mtab.
+     *   The mount point information in this configuration file
+     *   should be mostly accurate. But the file could be served remotely
+     *   on diskless nodes.
+     */
+#   define FGFS_ALT_MOUNTS_FILE "/etc/mtab"
 
 
-/** \def FGFS_ALT_MOUNTS_FILE
- *   Defines an alternative file that contains the mount point
- *   info. On Linux, if /proc/mounts is not available for some
- *   reason, this macro will allow to fall back to /etc/mtab.
- *   The mount point information in this configuration file
- *   should be mostly accurate. But the file could be served remotely
- *   on diskless nodes.
- */
-#define FGFS_ALT_MOUNTS_FILE "/etc/mtab"
-
-
-/** \def FGFS_STR_SIZE
- *   Defines the max string size
- */
-#define FGFS_STR_SIZE 4096
+    /** FGFS_STR_SIZE
+     *   Defines the max string size
+     */
+    const int FGFS_STR_SIZE = 4096;
 
 
     /**
@@ -483,7 +484,10 @@ namespace FastGlobalFileStat {
      *   @return none.
      */
     void MPA_registerMsgFd(FILE *fd, int lvl);
-}
+
+  } // MountPointAttribute namespace
+
+} // FastGlobalFileStat namespace
 
 #endif // MOUNT_POINT_ATTR_H
 

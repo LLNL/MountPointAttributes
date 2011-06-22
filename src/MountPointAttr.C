@@ -43,15 +43,17 @@ extern "C" {
 #include <sstream>
 #include <stdexcept>
 
+
 using namespace FastGlobalFileStat;
 
+using namespace FastGlobalFileStat::MountPointAttribute;
 
 ///////////////////////////////////////////////////////////////////
 //
 //  Global Variables:    namespace FastGlobalFileStat
 //
 //
-int FastGlobalFileStat::verboseLevel = 0;
+int FastGlobalFileStat::MountPointAttribute::verboseLevel = 0;
 
 
 ///////////////////////////////////////////////////////////////////
@@ -66,11 +68,12 @@ static char localNodeName[PATH_MAX];
 
 ///////////////////////////////////////////////////////////////////
 //
-//  PUBLIC INTERFACE:   namespace FastGlobalFileStat
+//  PUBLIC INTERFACE:   namespace FastGlobalFileStat::MountPointAttribute
 //
 //
 void 
-FastGlobalFileStat::MPA_registerMsgFd(FILE *fptr, int lvl)
+FastGlobalFileStat::MountPointAttribute::MPA_registerMsgFd(
+    FILE *fptr, int lvl)
 {
     if (fptr) 
     {
@@ -84,7 +87,8 @@ FastGlobalFileStat::MPA_registerMsgFd(FILE *fptr, int lvl)
 
 
 void 
-FastGlobalFileStat::MPA_sayMessage(const char* m, bool b, const char* output, ...)
+FastGlobalFileStat::MountPointAttribute::MPA_sayMessage(
+    const char* m, bool b, const char* output, ...)
 {
     va_list ap;
     char log[PATH_MAX];
@@ -99,7 +103,8 @@ FastGlobalFileStat::MPA_sayMessage(const char* m, bool b, const char* output, ..
 
 
 int 
-FastGlobalFileStat::MPA_getLocalNodeName(char *name, size_t len)
+FastGlobalFileStat::MountPointAttribute::MPA_getLocalNodeName(
+    char *name, size_t len)
 {
     int rc = 0;
     int l = 0;

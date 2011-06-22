@@ -31,6 +31,7 @@ extern "C" {
 #include "MountPointAttr.h"
 
 using namespace FastGlobalFileStat;
+using namespace FastGlobalFileStat::MountPointAttribute;
 
 int 
 recursiveCheckForAufs(MountPointInfo &mpInfo, MyMntEnt &aufsEntry, const char * dirname, bool remote) 

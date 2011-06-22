@@ -17,6 +17,7 @@
 
 namespace FastGlobalFileStat {
 
+  namespace MountPointAttribute {
 
     /**
      *   Defines a simple date type to support Union mount.
@@ -193,6 +194,9 @@ namespace FastGlobalFileStat {
      *   Wraps around gethostname to deal with some odd systems. 
      */
     int MPA_getLocalNodeName(char *name, size_t len);
-}
+
+  } // MountPointAttribute namespace
+
+} // FastGlobalFileStat namespace
 
 #endif // MOUNT_POINT_ATTR_URI_H
