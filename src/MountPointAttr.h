@@ -163,7 +163,7 @@ namespace FastGlobalFileStat {
   namespace MountPointAttribute {
 
     /**
-     *   \def FGFS_MOUNTS_FILE
+     *   FGFS_MOUNTS_FILE
      *   Defines a file that has most accurate mount point info.
      *   On Linux, the macro points to /proc/mounts that is on
      *   the procfs. This file contains the most precious current
@@ -171,10 +171,10 @@ namespace FastGlobalFileStat {
      *   memory, so it is most scalable way of getting the mount 
      *   point information of a node.
      */
-#   define FGFS_MOUNTS_FILE "/proc/mounts"
+     const char FGFS_MOUNTS_FILE[] = "/proc/mounts";
 
 
-    /** \def FGFS_ALT_MOUNTS_FILE
+    /**  FGFS_ALT_MOUNTS_FILE
      *   Defines an alternative file that contains the mount point
      *   info. On Linux, if /proc/mounts is not available for some
      *   reason, this macro will allow to fall back to /etc/mtab.
@@ -182,7 +182,7 @@ namespace FastGlobalFileStat {
      *   should be mostly accurate. But the file could be served remotely
      *   on diskless nodes.
      */
-#   define FGFS_ALT_MOUNTS_FILE "/etc/mtab"
+     const char FGFS_ALT_MOUNTS_FILE[] = "/etc/mtab";
 
 
     /** FGFS_STR_SIZE
