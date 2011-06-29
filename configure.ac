@@ -17,17 +17,17 @@ dnl Version numbers, remember to change them just *before* a release.
 dnl (Interfaces removed: CURRENT++, AGE=0, REVISION=0)
 dnl (Interfaces added: CURRENT++, AGE++, REVISION=0)
 dnl (No interfaces changed: REVISION++) 
-MPA_CURRENT=2
-MPA_REVISION=1
-MPA_AGE=1
+MPA_CURRENT=1
+MPA_REVISION=0
+MPA_AGE=0
 AC_SUBST(MPA_CURRENT)
 AC_SUBST(MPA_REVISION)
 AC_SUBST(MPA_AGE)
-AC_CANONICAL_SYSTEM
 AC_CONFIG_AUX_DIR([config]) 
 AC_CONFIG_SRCDIR([configure.ac])
 AC_CONFIG_HEADER([config.h])
 AM_INIT_AUTOMAKE(MountPointAttr, 1.0)
+AC_CANONICAL_HOST
 
 
 dnl -----------------------------------------------
