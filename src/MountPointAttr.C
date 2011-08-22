@@ -680,12 +680,16 @@ MountPointInfo::getFileUriInfo(const char *path,
                     fui.mountPoint = myEntry.dir_master;
                     if (po != std::string::npos) {
                         if (fui.mountPoint[fui.mountPoint.length()-1] != '/' ) {
-                            fui.pathFromExportDir 
-                              = pathStr.substr(myEntry.dir_master.size()+1);
+                            if (fui.mountPoint.size() < pathStr.size()) { 
+                                fui.pathFromExportDir 
+                                    = pathStr.substr(fui.mountPoint.size()+1);
+                            }
                         } 
                         else {
-                            fui.pathFromExportDir 
-                              = pathStr.substr(myEntry.dir_master.size());
+                            if (fui.mountPoint.size() < pathStr.size()) { 
+                                fui.pathFromExportDir 
+                                    = pathStr.substr(fui.mountPoint.size());
+                            }
                         }
                     }
                     else {
