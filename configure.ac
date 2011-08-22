@@ -2,10 +2,29 @@ dnl $Header: $
 dnl
 dnl configure.ac
 dnl
-dnl --------------------------------------------------------------------------------
+dnl -------------------------------------------------------------------------------- 
 dnl Copyright (c) 2011, Lawrence Livermore National Security, LLC. Produced at
-dnl the Lawrence Livermore National Laboratory. Written by Dong H. Ahn <ahn1@llnl.gov>.
-dnl LLNL-CODE-xxxxxx. All rights reserved. 
+dnl the Lawrence Livermore National Laboratory. Written by Dong H. Ahn <ahn1@llnl.gov>. 
+dnl LLNL-CODE-490173. All rights reserved.
+dnl 
+dnl This file is part of MountPointAttributes. For details, 
+dnl see https://computing.llnl.gov/?set=resources&page=os_projects
+dnl 
+dnl Please also read LICENSE - Our Notice and GNU Lesser General Public License.
+dnl 
+dnl This program is free software; you can redistribute it and/or modify it under 
+dnl the terms of the GNU General Public License (as published by the Free Software
+dnl Foundation) version 2.1 dated February 1999.
+dnl 
+dnl This program is distributed in the hope that it will be useful, but WITHOUT ANY
+dnl WARRANTY; without even the IMPLIED WARRANTY OF MERCHANTABILITY or
+dnl FITNESS FOR A PARTICULAR PURPOSE. See the terms and conditions of the GNU
+dnl General Public License for more details.
+dnl 
+dnl You should have received a copy of the GNU Lesser General Public License along
+dnl with this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+dnl Place, Suite 330, Boston, MA 02111-1307 USA
+dnl -------------------------------------------------------------------------------- 
 dnl
 dnl   Update Log:
 dnl         May 23 2011 DHA: File created.
