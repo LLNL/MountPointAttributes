@@ -51,10 +51,10 @@ extern "C" {
 #include "FgfsCommon.h"
 #include "MountPointAttrUri.h"
 
-namespace FastGlobalFileStat {
+namespace FastGlobalFileStatus {
 
     /**
-     @mainpage Fast Global File Stat (FGFS)
+     @mainpage Fast Global File Status (FGFS)
      @author Dong H. Ahn, Development Environment Group, Livermore Computing (LC) Division, LLNL
 
      @section intro Introduction
@@ -86,7 +86,7 @@ namespace FastGlobalFileStat {
      efforts. We rather desire a common middleware solution that provides
      applications and runtime tools with abstractions and 
      mechanisms for efficient, scalable use of file systems. 
-     We developed Fast Global File Stat (FGFS) with the goal to provide 
+     We developed Fast Global File Status (FGFS) with the goal to provide 
      such a solution. FGFS offers abstractions and scalable mechanisms 
      that determine common distributed properties of a file 
      such as its uniqueness, consistency and the degree of distribution. 
@@ -118,7 +118,7 @@ namespace FastGlobalFileStat {
 
      @verbatim
          #include "MountPointAttr.h"
-         using namespace FastGlobalFileStat;
+         using namespace FastGlobalFileStatus;
          ...
 
          MountPointInfo mpInfo(true);
@@ -144,7 +144,7 @@ namespace FastGlobalFileStat {
 
      @verbatim
          #include "MountPointAttr.h"
-         using namespace FastGlobalFileStat;
+         using namespace FastGlobalFileStatus;
          ...
 
          MyMntEnt anEntry;
@@ -222,42 +222,58 @@ namespace FastGlobalFileStat {
      *                      ufs, umsdos, vfat, xenix, xiafs 
      */
     enum FileSystemType {
-        fs_nfs,         /*!< network file system version 3, remote */
-        fs_nfs4,        /*!< network file system version 4, remote */
-        fs_lustre,      /*!< parallel file system, remote */
-        fs_gpfs,        /*!< parallel file system, remote */
-        fs_panfs,       /*!< PanFS file system, remote */
-        fs_plfs,        /*!< PLFS checkpoint file system, remote */
-        fs_cifs,        /*!< common internet file system, remote */  
-        fs_smbfs,       /*!< server message block protocol, remote */  
-        fs_dvs,         /*!< Cray Compute Node's DVS, remote */
-        fs_ext,         /*!< local disk: sextended file system */
-        fs_ext2,        /*!< local disk: second extended file system */
-        fs_ext3,        /*!< local disk: third extended file system */
-        fs_ext4,        /*!< local disk: fourth extended file system */
-        fs_jfs,         /*!< local disk: IBM journaled file system */
-        fs_xfs,         /*!< local disk: high performance journaling fs */
-        fs_reiserfs,    /*!< local disk: journaled file system */
-        fs_hpfs,        /*!< local disk: high performance file system */ 
-        fs_iso9660,     /*!< local compact disk file system */
-        fs_aufs,        /*!< AUFS "another union file system" (care is needed) */
-        fs_ramfs,       /*!< ramfs served off of memory */
-        fs_tmpfs,       /*!< a ramfs kind */
-        fs_rootfs,      /*!< a ramfs kind but care is needed since other FS can be overlaid */
-        fs_proc,        /*!< procfs, memory */
-        fs_fusectl,     /*!< fuse file system, memory */
-        fs_sysfs,       /*!< sysfs, memory */
-        fs_usbfs,       /*!< usb file system, USB memory */
-        fs_debugfs,     /*!< debugfs memory */
-        fs_devpts,      /*!< /dev/pts, memory */
-        fs_securityfs,  /*!< memory */
-        fs_binfmt_misc,
-        fs_cpuset,
-        fs_rpc_pipefs,
-        fs_autofs,      /*!< root directory of automount, memory */
-        fs_selinux,     /*!< /selinux, pseudo file system, memory */
-        fs_nfsd,        /*!< /proc/fs/nfsd pseudo file system, memory */ 
-        fs_unknown      /*!< catch all */
+        fs_nfs     = 0, /*!< network file system version 3, remote */
+        fs_nfs4    = 1, /*!< network file system version 4, remote */
+        fs_lustre  = 2, /*!< parallel file system, remote */
+        fs_gpfs    = 3, /*!< parallel file system, remote */
+        fs_panfs   = 4, /*!< PanFS file system, remote */
+        fs_plfs    = 5, /*!< PLFS checkpoint file system, remote */
+        fs_cifs    = 6, /*!< common internet file system, remote */  
+        fs_smbfs   = 7, /*!< server message block protocol, remote */  
+        fs_dvs     = 8, /*!< Cray Compute Node's DVS, remote */
+        fs_ext     = 9, /*!< local disk: sextended file system */
+        fs_ext2    = 10, /*!< local disk: second extended file system */
+        fs_ext3    = 11, /*!< local disk: third extended file system */
+        fs_ext4    = 12, /*!< local disk: fourth extended file system */
+        fs_jfs     = 13, /*!< local disk: IBM journaled file system */
+        fs_xfs     = 14, /*!< local disk: high performance journaling fs */
+        fs_reiserfs= 15, /*!< local disk: journaled file system */
+        fs_hpfs    = 16, /*!< local disk: high performance file system */ 
+        fs_iso9660 = 17, /*!< local compact disk file system */
+        fs_aufs    = 18, /*!< AUFS "another union file system" (care is needed) */
+        fs_ramfs   = 19, /*!< ramfs served off of memory */
+        fs_tmpfs   = 20, /*!< a ramfs kind */
+        fs_rootfs  = 21, /*!< a ramfs kind but care is needed since other FS can be overlaid */
+        fs_proc    = 22, /*!< procfs, memory */
+        fs_fusectl = 23, /*!< fuse file system, memory */
+        fs_sysfs   = 24, /*!< sysfs, memory */
+        fs_usbfs   = 25, /*!< usb file system, USB memory */
+        fs_debugfs = 26, /*!< debugfs memory */
+        fs_devpts  = 27, /*!< /dev/pts, memory */
+        fs_securityfs = 28, /*!< memory */
+        fs_binfmt_misc = 29,
+        fs_cpuset  = 30,
+        fs_rpc_pipefs = 31,
+        fs_autofs  = 32, /*!< root directory of automount, memory */
+        fs_selinux = 33, /*!< /selinux, pseudo file system, memory */
+        fs_nfsd    = 34, /*!< /proc/fs/nfsd pseudo file system, memory */ 
+        fs_unknown = 35  /*!< catch all */
+    };
+
+
+    const int BASE_FS_SPEED = 1;
+    const int BASE_FS_SCALABILITY = 1;
+    const int INDIRECTION = -1;
+
+
+    /**
+     *   Info for file system types. This supports
+     *   upper layers that classifies storage. 
+     */
+    struct FileSystemTypeInfo {
+        FileSystemType t;
+        unsigned short speed;
+        unsigned short scalability;
     };
 
 
@@ -378,7 +394,7 @@ namespace FastGlobalFileStat {
             const char * parse();
 
             /**
-             *   Returns a mount point entry corresponding to an absolute path.
+             *   Returns a mount point entry corresponding to the given absolute path.
              *
              *   Note that the method bases its operation solely on the name: 
              *   any given absolute path will be resolved even if it is nonexistent 
@@ -395,6 +411,22 @@ namespace FastGlobalFileStat {
              *   @return a C string if an error is encountered; otherwise NULL.
              */
             const char * getMntPntInfo(const char *path,
+                                       MyMntEnt &result) const;
+
+            /**
+             *   Returns a mount point entry corresponding to the given absolute path.
+             * 
+             *   This call is identical as getMntPntInfo except that it resolve
+             *   the level of indirection if the file system supports it. For example,
+             *   for union fs system, it returns the mount point for the 
+             *   underlying file system wherein the actual file resides.
+             *   TODO: this call should resolve dvs as well, which isn't yet supported.
+             *
+             *   @param[in] path an absolute path that contains no links.
+             *   @param[out] result the mount point entry of that path of MyMntEnt type.
+             *   @return a C string if an error is encountered; otherwise NULL.
+             */
+            const char * getMntPntInfo2(const char *path,
                                        MyMntEnt &result) const;
 
             /**
@@ -466,6 +498,27 @@ namespace FastGlobalFileStat {
              */
             FileSystemType determineFSType(const std::string &fsType) const;
 
+
+            /**
+             *   Return File System's speed estimate as an multiple of 
+             *   BASE_FS_SPEED 
+             *
+             *   @param[in] t of FileSystemType.
+             *   @return speed. 0 if an error is encountered.
+             */
+            const int getSpeed(FileSystemType t) const; 
+
+
+            /**
+             *   Return File System's speed estimate as an multiple of 
+             *   BASE_FS_SCALABILITY 
+             *
+             *   @param[in] t of FileSystemType.
+             *   @return scalability. 0 if an error is encountered.
+             */
+            const int getScalability(FileSystemType t) const; 
+
+
            /**
              *   Returns the MntPntMap as immutable object
              *
@@ -506,7 +559,7 @@ namespace FastGlobalFileStat {
 
   } // MountPointAttribute namespace
 
-} // FastGlobalFileStat namespace
+} // FastGlobalFileStatus namespace
 
 #endif // MOUNT_POINT_ATTR_H
 

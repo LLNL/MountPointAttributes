@@ -34,7 +34,7 @@
 
 #include <string>
 
-namespace FastGlobalFileStat {
+namespace FastGlobalFileStatus {
 
   namespace MountPointAttribute {
 
@@ -193,7 +193,7 @@ namespace FastGlobalFileStat {
 
     /**
      *   Compare the given level to the current verbose level. The function 
-     *   should be internal to the Fast Global File Stat project.
+     *   should be internal to the Fast Global File Status project.
      */
     extern int verboseLevel;
     inline bool ChkVerbose(int level)
@@ -204,7 +204,7 @@ namespace FastGlobalFileStat {
 
     /**
      *   Prints a error/info message to a stream. The function should be
-     *   internal to the Fast Global File Stat project.
+     *   internal to the Fast Global File Status project.
      */
     void MPA_sayMessage(const char *m, bool b, const char *output, ...);
 
@@ -216,6 +216,6 @@ namespace FastGlobalFileStat {
 
   } // MountPointAttribute namespace
 
-} // FastGlobalFileStat namespace
+} // FastGlobalFileStatus namespace
 
 #endif // MOUNT_POINT_ATTR_URI_H

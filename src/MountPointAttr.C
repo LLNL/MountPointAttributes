@@ -63,35 +63,77 @@ extern "C" {
 #include <stdexcept>
 
 
-using namespace FastGlobalFileStat;
+using namespace FastGlobalFileStatus;
 
-using namespace FastGlobalFileStat::MountPointAttribute;
-
-///////////////////////////////////////////////////////////////////
-//
-//  Global Variables:    namespace FastGlobalFileStat
-//
-//
-int FastGlobalFileStat::MountPointAttribute::verboseLevel = 0;
-
+using namespace FastGlobalFileStatus::MountPointAttribute;
 
 ///////////////////////////////////////////////////////////////////
 //
-//  Static Variables:    namespace FastGlobalFileStat
+//  Global Variables:    namespace FastGlobalFileStatus
+//
+//
+int FastGlobalFileStatus::MountPointAttribute::verboseLevel = 0;
+
+
+///////////////////////////////////////////////////////////////////
+//
+//  Static Variables:    namespace FastGlobalFileStatus
 //
 //
 static FILE *debugOut = stdout;
 static bool nNameCached = false;
 static char localNodeName[PATH_MAX];
 
+//
+// TODO: This should be later changed as mount point-specific configuration
+//
+static const FileSystemTypeInfo ftinfo[] = {
+    /* 0 t*/ {fs_nfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 1 */ {fs_nfs4, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 2 t*/ {fs_lustre, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
+    /* 3 t*/ {fs_gpfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
+    /* 4 */ {fs_panfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
+    /* 5 */ {fs_plfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 6 */ {fs_cifs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 7 */ {fs_smbfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 8 */ {fs_dvs, BASE_FS_SPEED, 2*BASE_FS_SCALABILITY}, 
+    /* 9 */ {fs_ext, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 10 */ {fs_ext2, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 11 t*/ {fs_ext3, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 12 */ {fs_ext4, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 13 */ {fs_jfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 14 */ {fs_xfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 15 */ {fs_reiserfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 16 */ {fs_hpfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 17 */ {fs_iso9660, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 18 */ {fs_aufs, INDIRECTION, INDIRECTION}, 
+    /* 19 t*/ {fs_ramfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 20 */ {fs_tmpfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 21 */ {fs_rootfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 22 */ {fs_proc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 23 */ {fs_fusectl, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 24 */ {fs_sysfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 25 */ {fs_usbfs, 5*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 26 */ {fs_debugfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 27 */ {fs_devpts, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 28 */ {fs_securityfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 29 */ {fs_binfmt_misc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 30 */ {fs_cpuset, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 31 */ {fs_rpc_pipefs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 32 */ {fs_autofs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 33 */ {fs_selinux, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 34 */ {fs_nfsd, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
+    /* 35 */ {fs_unknown, BASE_FS_SPEED, BASE_FS_SCALABILITY} 
+};
+    
 
 ///////////////////////////////////////////////////////////////////
 //
-//  PUBLIC INTERFACE:   namespace FastGlobalFileStat::MountPointAttribute
+//  PUBLIC INTERFACE:   namespace FastGlobalFileStatus::MountPointAttribute
 //
 //
 void 
-FastGlobalFileStat::MountPointAttribute::MPA_registerMsgFd(
+FastGlobalFileStatus::MountPointAttribute::MPA_registerMsgFd(
     FILE *fptr, int lvl)
 {
     if (fptr) 
@@ -106,7 +148,7 @@ FastGlobalFileStat::MountPointAttribute::MPA_registerMsgFd(
 
 
 void 
-FastGlobalFileStat::MountPointAttribute::MPA_sayMessage(
+FastGlobalFileStatus::MountPointAttribute::MPA_sayMessage(
     const char* m, bool b, const char* output, ...)
 {
     va_list ap;
@@ -122,7 +164,7 @@ FastGlobalFileStat::MountPointAttribute::MPA_sayMessage(
 
 
 int 
-FastGlobalFileStat::MountPointAttribute::MPA_getLocalNodeName(
+FastGlobalFileStatus::MountPointAttribute::MPA_getLocalNodeName(
     char *name, size_t len)
 {
     int rc = 0;
@@ -659,6 +701,21 @@ MountPointInfo::getMntPntInfo(const char *path,
 
 
 const char *
+MountPointInfo::getMntPntInfo2(const char *path, 
+                              MyMntEnt &result) const
+{
+    std::stringstream ss;
+    FGFSInfoAnswer rc = isRemoteFileSystem(path, result); 
+    if (IS_ERROR(rc)) {
+        ss << "Error encountered in isRemoteFileSystem";
+        return (strdup(ss.str().c_str()));
+    }
+
+    return NULL;
+}
+
+
+const char *
 MountPointInfo::getFileUriInfo(const char *path, 
                                FileUriInfo &fui) 
 {
@@ -859,6 +916,28 @@ FGFSInfoAnswer
 MountPointInfo::isLocalDevice(const char *path, MyMntEnt &result) const
 {
     return NOT(isRemoteFileSystem(path, result));
+}
+
+
+const int 
+MountPointInfo::getSpeed(FileSystemType t) const
+{
+    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+        return (ftinfo[t].speed);
+    }
+
+    return 0;
+}
+
+
+const int 
+MountPointInfo::getScalability(FileSystemType t) const
+{
+    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+        return (ftinfo[t].scalability);
+    }
+
+    return 0;
 }
 
 

@@ -43,8 +43,8 @@ extern "C" {
 }
 #include "MountPointAttr.h"
 
-using namespace FastGlobalFileStat;
-using namespace FastGlobalFileStat::MountPointAttribute;
+using namespace FastGlobalFileStatus;
+using namespace FastGlobalFileStatus::MountPointAttribute;
 
 const char testTextName[] = "test.txt"; 
 const char testTextLinkName[] = "test.txt.hardlink"; 

@@ -40,8 +40,8 @@ extern "C" {
 }
 #include "MountPointAttr.h"
 
-using namespace FastGlobalFileStat;
-using namespace FastGlobalFileStat::MountPointAttribute;
+using namespace FastGlobalFileStatus;
+using namespace FastGlobalFileStatus::MountPointAttribute;
 
 const char nonexistence[] = "/nonexistence/nonexistence/nonexistence"; 
 const char invalidpath[] = "./invalid";

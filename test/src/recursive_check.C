@@ -46,8 +46,8 @@ extern "C" {
 #include <string>
 #include "MountPointAttr.h"
 
-using namespace FastGlobalFileStat;
-using namespace FastGlobalFileStat::MountPointAttribute;
+using namespace FastGlobalFileStatus;
+using namespace FastGlobalFileStatus::MountPointAttribute;
 
 int 
 recursiveCheck(MountPointInfo &mpInfo, const char * dirname, bool remote) 

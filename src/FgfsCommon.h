@@ -32,7 +32,7 @@
 #ifndef FGFS_COMMON_H
 #define FGFS_COMMON_H 1
 
-namespace FastGlobalFileStat {
+namespace FastGlobalFileStatus {
 
     /**
      *   Customizes a boolean type.
