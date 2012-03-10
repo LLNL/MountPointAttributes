@@ -274,6 +274,7 @@ namespace FastGlobalFileStatus {
         FileSystemType t;
         unsigned short speed;
         unsigned short scalability;
+        const char *fs_name;
     };
 
 
@@ -323,10 +324,11 @@ namespace FastGlobalFileStatus {
             MyMntEnt & operator=(const MyMntEnt &rhs);
             bool operator==(const MyMntEnt &rhs);
             bool operator!=(const MyMntEnt &rhs);
+            const std::string & getRealMountPointDir() const;
 
             std::string fsname;     /*!< Device or server for filesystem. */
             std::string dir_master; /*!< Directory mounted on. */
-            std::string dir_branch; /*!< Directory mounted on. */
+            std::string dir_branch; /*!< Directory mounted on. It points to the RW dir in the case of unionfs*/
             std::string type;       /*!< Type of filesystem: ufs, nfs, etc. */
             std::string opts;       /*!< Comma-separated options for fs. */
             int freq;               /*!< Dump frequency (in days). */
@@ -510,13 +512,22 @@ namespace FastGlobalFileStatus {
 
 
             /**
-             *   Return File System's speed estimate as an multiple of 
+             *   Return File System's scalability estimate as an multiple of 
              *   BASE_FS_SCALABILITY 
              *
              *   @param[in] t of FileSystemType.
              *   @return scalability. 0 if an error is encountered.
              */
             const int getScalability(FileSystemType t) const; 
+
+
+            /**
+             *   Return File System's string name
+             *
+             *   @param[in] t of FileSystemType.
+             *   @return File System's name. NULL if an error is encountered.
+             */
+            const char *getFSName(FileSystemType t) const;    
 
 
            /**

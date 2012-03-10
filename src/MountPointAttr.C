@@ -88,42 +88,42 @@ static char localNodeName[PATH_MAX];
 // TODO: This should be later changed as mount point-specific configuration
 //
 static const FileSystemTypeInfo ftinfo[] = {
-    /* 0 t*/ {fs_nfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 1 */ {fs_nfs4, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 2 t*/ {fs_lustre, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
-    /* 3 t*/ {fs_gpfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
-    /* 4 */ {fs_panfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY}, 
-    /* 5 */ {fs_plfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 6 */ {fs_cifs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 7 */ {fs_smbfs, BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 8 */ {fs_dvs, BASE_FS_SPEED, 2*BASE_FS_SCALABILITY}, 
-    /* 9 */ {fs_ext, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 10 */ {fs_ext2, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 11 t*/ {fs_ext3, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 12 */ {fs_ext4, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 13 */ {fs_jfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 14 */ {fs_xfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 15 */ {fs_reiserfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 16 */ {fs_hpfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 17 */ {fs_iso9660, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 18 */ {fs_aufs, INDIRECTION, INDIRECTION}, 
-    /* 19 t*/ {fs_ramfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 20 */ {fs_tmpfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 21 */ {fs_rootfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 22 */ {fs_proc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 23 */ {fs_fusectl, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 24 */ {fs_sysfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 25 */ {fs_usbfs, 5*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 26 */ {fs_debugfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 27 */ {fs_devpts, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 28 */ {fs_securityfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 29 */ {fs_binfmt_misc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 30 */ {fs_cpuset, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 31 */ {fs_rpc_pipefs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 32 */ {fs_autofs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 33 */ {fs_selinux, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 34 */ {fs_nfsd, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY}, 
-    /* 35 */ {fs_unknown, BASE_FS_SPEED, BASE_FS_SCALABILITY} 
+    /* 0 */ {fs_nfs, BASE_FS_SPEED, BASE_FS_SCALABILITY, "nfs"}, 
+    /* 1 */ {fs_nfs4, BASE_FS_SPEED, BASE_FS_SCALABILITY, "nfs4"}, 
+    /* 2 */ {fs_lustre, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY, "lustre"}, 
+    /* 3 */ {fs_gpfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY, "gpfs"}, 
+    /* 4 */ {fs_panfs, BASE_FS_SPEED, 6*BASE_FS_SCALABILITY, "panfs"}, 
+    /* 5 */ {fs_plfs, BASE_FS_SPEED, BASE_FS_SCALABILITY, "plfs"}, 
+    /* 6 */ {fs_cifs, BASE_FS_SPEED, BASE_FS_SCALABILITY, "cifs"}, 
+    /* 7 */ {fs_smbfs, BASE_FS_SPEED, BASE_FS_SCALABILITY, "smbfs"}, 
+    /* 8 */ {fs_dvs, BASE_FS_SPEED, 2*BASE_FS_SCALABILITY, "dvs"}, 
+    /* 9 */ {fs_ext, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "ext"}, 
+    /* 10 */ {fs_ext2, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "ext2"}, 
+    /* 11 */ {fs_ext3, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "ext3"}, 
+    /* 12 */ {fs_ext4, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "ext4"}, 
+    /* 13 */ {fs_jfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "jfs"}, 
+    /* 14 */ {fs_xfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "xfs"}, 
+    /* 15 */ {fs_reiserfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "reiserfs"}, 
+    /* 16 */ {fs_hpfs, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "hpfs"}, 
+    /* 17 */ {fs_iso9660, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "iso9660"}, 
+    /* 18 */ {fs_aufs, INDIRECTION, INDIRECTION, "aufs"}, 
+    /* 19 */ {fs_ramfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "ramfs"}, 
+    /* 20 */ {fs_tmpfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "tmpfs"}, 
+    /* 21 */ {fs_rootfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "rootfs"}, 
+    /* 22 */ {fs_proc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "proc"}, 
+    /* 23 */ {fs_fusectl, 2*BASE_FS_SPEED, BASE_FS_SCALABILITY, "fusectl"}, 
+    /* 24 */ {fs_sysfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "sysfs"}, 
+    /* 25 */ {fs_usbfs, 5*BASE_FS_SPEED, BASE_FS_SCALABILITY, "usbfs"}, 
+    /* 26 */ {fs_debugfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "debugfs"}, 
+    /* 27 */ {fs_devpts, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "devpts"}, 
+    /* 28 */ {fs_securityfs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "securityfs"}, 
+    /* 29 */ {fs_binfmt_misc, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "binfmt_misc"}, 
+    /* 30 */ {fs_cpuset, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "cpuset"}, 
+    /* 31 */ {fs_rpc_pipefs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "rpc_pipefs"}, 
+    /* 32 */ {fs_autofs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "autofs"}, 
+    /* 33 */ {fs_selinux, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "selinux"}, 
+    /* 34 */ {fs_nfsd, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "nfsd"}, 
+    /* 35 */ {fs_unknown, BASE_FS_SPEED, BASE_FS_SCALABILITY, "unknown"} 
 };
     
 
@@ -479,6 +479,19 @@ MyMntEnt::operator!=(const MyMntEnt &rhs)
              && (opts == rhs.opts)
              && (freq == rhs.freq)
              && (passno == rhs.passno)) );
+}
+
+
+const std::string & 
+MyMntEnt::getRealMountPointDir() const
+{
+    //
+    // In most cases, dir_master is identical as dir_branch.
+    // But in the case of stacked file system like unionfs, dir_branch
+    // points to the real RW mount point (dir_branch) hidden below
+    // RO mount point (dir_master). This method return dir_branch.
+    //
+    return dir_branch;
 }
 
 
@@ -938,6 +951,17 @@ MountPointInfo::getScalability(FileSystemType t) const
     }
 
     return 0;
+}
+
+
+const char *
+MountPointInfo::getFSName(FileSystemType t) const
+{
+    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+        return (ftinfo[t].fs_name);
+    }
+
+    return NULL;
 }
 
 
