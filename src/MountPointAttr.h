@@ -257,7 +257,8 @@ namespace FastGlobalFileStatus {
         fs_autofs  = 32, /*!< root directory of automount, memory */
         fs_selinux = 33, /*!< /selinux, pseudo file system, memory */
         fs_nfsd    = 34, /*!< /proc/fs/nfsd pseudo file system, memory */ 
-        fs_unknown = 35  /*!< catch all */
+        fs_cgroup  = 35, /*!< /proc/fs/cgroup pseudo file system, memory */ 
+        fs_unknown = 36  /*!< catch all */
     };
 
 
