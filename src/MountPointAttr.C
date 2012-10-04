@@ -123,7 +123,8 @@ static const FileSystemTypeInfo ftinfo[] = {
     /* 32 */ {fs_autofs, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "autofs"}, 
     /* 33 */ {fs_selinux, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "selinux"}, 
     /* 34 */ {fs_nfsd, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "nfsd"}, 
-    /* 35 */ {fs_unknown, BASE_FS_SPEED, BASE_FS_SCALABILITY, "unknown"} 
+    /* 35 */ {fs_cgroup, 10*BASE_FS_SPEED, BASE_FS_SCALABILITY, "cgroup"}, 
+    /* 36 */ {fs_unknown, BASE_FS_SPEED, BASE_FS_SCALABILITY, "unknown"} 
 };
     
 
@@ -935,7 +936,7 @@ MountPointInfo::isLocalDevice(const char *path, MyMntEnt &result) const
 const int 
 MountPointInfo::getSpeed(FileSystemType t) const
 {
-    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+    if (t >= 0 && t <= fs_unknown && ftinfo[t].t == t) {
         return (ftinfo[t].speed);
     }
 
@@ -946,7 +947,7 @@ MountPointInfo::getSpeed(FileSystemType t) const
 const int 
 MountPointInfo::getScalability(FileSystemType t) const
 {
-    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+    if (t >= 0 && t <= fs_unknown && ftinfo[t].t == t) {
         return (ftinfo[t].scalability);
     }
 
@@ -957,7 +958,7 @@ MountPointInfo::getScalability(FileSystemType t) const
 const char *
 MountPointInfo::getFSName(FileSystemType t) const
 {
-    if (t >= 0 && t < fs_unknown && ftinfo[t].t == t) {
+    if (t >= 0 && t <= fs_unknown && ftinfo[t].t == t) {
         return (ftinfo[t].fs_name);
     }
 
