@@ -74,7 +74,7 @@ main(int argc, char *argv[])
     if (!IS_ERROR(mpInfo.isRemoteFileSystem(invalidpath, anEntry))) {
         MPA_sayMessage("Unit Test", 
             true, 
-            "FAILURE: isRemoteFileSystem method doesn't return an error on an relative path.");
+            "FAILURE: isRemoteFileSystem method doesn't return an error on a relative path.");
         exit(1);
     }
     if (!IS_ERROR(mpInfo.isLocalDevice(invalidpath, anEntry))) {

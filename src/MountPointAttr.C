@@ -24,6 +24,10 @@
  * --------------------------------------------------------------------------------
  *
  * Update Log:
+ *        Apr 26 2013 DHA: Added endmntent 
+ *                         % valgrind --leak-check=full --show-reachable=yes 
+ *                         test001_recursive_walk_remote /g/g0/dahn
+ *                         found a small leak by not calling endmntent.
  *        May 27 2011 DHA: Added MyMntEnt::operator== and operator!=
  *        May 27 2011 DHA: Added config.h support
  *        May 20 2011 DHA: Cleaned up interfaces: Added URI concept and 

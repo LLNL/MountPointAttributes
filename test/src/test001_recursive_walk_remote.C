@@ -24,6 +24,8 @@
  * --------------------------------------------------------------------------------
  *
  * Update Log:
+ *        May 26 2013 DHA: Checked memory correctness 
+ *                         (Both Valgrind and TotalView memScape.)
  *        May 27 2011 DHA: Added config.h support
  *        May 23 2011 DHA: File created.
  *

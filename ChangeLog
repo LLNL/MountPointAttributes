@@ -1,0 +1,7 @@
+2013-04-26 Dong H. Ahn <ahn1@llnl.gov>
+        * src/MountPointAttr.C
+	  test/src/test001_recursive_walk_remote.C
+	  test/src/test002_recursive_walk_local.C
+	  test/src/test003_corner_path.C: Ran unit tests on 
+	      redhat el6.4 (LLNL TOSS 2.1). Changes include
+	      issues found during memory correctness checks. 
