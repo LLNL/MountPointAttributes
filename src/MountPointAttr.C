@@ -569,6 +569,11 @@ MountPointInfo::parse()
         goto l_has_err;
     }
 
+    //
+    // 4/26/2013: DHA totalview memory checker shows that gethostbyname
+    // leaks some amount of memory, but the man page doesn't describe
+    // how to free them. 44 count amounting to 3.84KB.
+    //
     if ( (hent = gethostbyname(hname)) ) {
         strncpy(localNodeName, hent->h_name, PATH_MAX);
     }
@@ -658,6 +663,19 @@ MountPointInfo::parse()
         mMntPntMap[std::string(mntbuf.mnt_dir)] = anEntry;
     }
 
+    //
+    // 4/26/2013: % valgrind --leak-check=full --show-reachable=yes 
+    //              test001_recursive_walk_remote /g/g0/dahn
+    // found a small leak by not calling endmntent
+    //
+    if (endmntent(mpfptr) != 1) {
+      if (ChkVerbose(0)) {
+	MPA_sayMessage("MountPointAttr", 
+		       false, 
+		       "endmntent must not return non-1 but it did... ignoring"); 
+      }
+    }
+      
     parsed = true;
     return NULL;
 
