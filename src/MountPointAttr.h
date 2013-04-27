@@ -54,63 +54,54 @@ extern "C" {
 namespace FastGlobalFileStatus {
 
     /**
-     @mainpage Fast Global File Status (FGFS)
+     @mainpage Mount Point Attributes Module for Fast Global File Status (FGFS)
      @author Dong H. Ahn, Development Environment Group, Livermore Computing (LC) Division, LLNL
 
      @section intro Introduction
 
-     Efficient use of storage is essential for high performance 
-     computing applications. HPC environments must employ best 
-     practices in accessing all levels of the storage hierarchy, 
-     from registers to caches and memory, further to various 
-     file systems so as to realize the full potential of the system.
-     However, trends towards millions of processing cores continue to impose
-     increasingly larger pressure to lower levels in the hierarchy.  
-     In particular, the exponential growth in core counts of high-end systems 
-     quickly outpace the scalability of any file system technologies. 
-     Often, a large-scale application's single uncoordinated, unbalanced access to a shared 
-     file system becomes a catastrophe. Whenever a new system is
-     brought up, HPC centers observe that uncoorindated file system
-     access by a newly ported application drastically overwhelms 
-     a shared file system, a problem surfacing as what appears 
-     to be a denial of service attack on the shared resource. 
-     This problem is pandemic from scientific applications 
-     to runtime tools as they always build on 
-     some software components that are built for serial processing
-     with no notion of coordination needed for parallel processing. 
+     Large-scale systems typically mount many different file systems with
+     distinct performance characteristics and capacity. Applications
+     must efficiently use this storage in order to realize their full performance
+     potential. Users must take into account potential file replication throughout
+     the storage hierarchy as well as contention in lower levels of the 
+     I/O system, and must consider communicating the results of file I/O 
+     between application processes to reduce file system accesses.
+     Addressing these issues and optimizing file accesses requires detailed 
+     run-time knowledge of file system performance characteristics and 
+     the location(s) of files on them.
+     
+     We developed Fast Global File Status (FGFS) to provide a scalable 
+     mechanism to retrieve such information of a file, including its degree of 
+     distribution or replication and consistency. FGFS uses a novel node-local 
+     technique that turns expensive, non-scalable file system calls into 
+     simple string comparison operations. FGFS raises the namespace of a 
+     locally-defined file path to a global namespace with little or no file 
+     system calls to obtain global file properties efficiently. Our evaluation 
+     on a large multi-physics application showed that most FGFS file status queries on 
+     its executable and 848 shared library files complete in 272 milliseconds
+     or faster at 32,768 MPI processes. Even the most expensive operation, 
+     which checks global file consistency, completes in under 7 seconds at this 
+     scale, an improvement of several orders of magnitude 
+     over the traditional checksum technique.
 
-     Many tools and applications have implemented ad-hoc 
-     solutions to address this well-recognized challenge. But that 
-     approach have proven to be costly. Supporting the task of porting 
-     and maintaining \a m solutions to \a n environments becomes \a m x \a n 
-     efforts. We rather desire a common middleware solution that provides
-     applications and runtime tools with abstractions and 
-     mechanisms for efficient, scalable use of file systems. 
-     We developed Fast Global File Status (FGFS) with the goal to provide 
-     such a solution. FGFS offers abstractions and scalable mechanisms 
-     that determine common distributed properties of a file 
-     such as its uniqueness, consistency and the degree of distribution. 
-     Using these abstractions, developers can easily judge 
-     the I/O performance expection on the target file at a scale, 
-     the information that allows them to devise an effective storage 
-     access strategy involving various trade-offs.
-  
+     The main abstractions that enables raising the namespace of local file names
+     are packaged up into the \c MountPointAttributes module.
+
      @section fnresol File Name Resolution Engine 
-     The core building block of FGFS is the technique that 
-     raises the local namespace of a file to a global namespace. 
+     The core technique of \c MountPointAttributes is a scalable mechanism to 
+     raise the local namespace of a file to a global namespace. 
      The global namespace enables fast comparisons of local 
      file properties across distributed machines with little or
      no access requirement on the underlying file systems. 
-     More specifically, our file name resolution engine 
+     More specifically, the file name resolution engine of \c MountPointAttributes 
      turns a local file path into a Uniform Resource Identifier (URI), 
      a globally unique identifier of the file. This resolution 
-     process is merely a memory operation as our technique 
-     builds an URI through file system mount point table 
-     that is available in system memory. Thus,
-     this core logic requires no communication and is extremely 
-     scalable by definition. 
+     process is merely a memory operation, as our technique 
+     builds an URI through the file system mount point table, 
+     which is available in system memory. Thus,
+     this core logic requires no communication and can scale well.
 
-     The MountPointInfo class is the main data type 
+     The \c MountPointInfo class is the main data type 
      associated with the file name resolution process. For example,
      the following code snippet stores \c filepath's URI into 
      \c uriString like "nfs://dip-nfs.llnl.gov:/vol/g0/joe/readme"
@@ -137,10 +128,10 @@ namespace FastGlobalFileStatus {
          ...
      @endverbatim
 
-     In addition, MountPointInfo allows developers to get mount point
-     information directly through a MyMntEnt object and provides 
-     higher-level abstractions to determine other properties 
-     like whether a file is served remotely or locally.
+     In addition, \c MountPointInfo allows developers to retrieve mount-points
+     information directly through a \c MyMntEnt object and offers 
+     higher-level abstractions to query relevant properties: 
+     e.g., is the source of a file remote or local.
 
      @verbatim
          #include "MountPointAttr.h"
@@ -161,22 +152,6 @@ namespace FastGlobalFileStatus {
              // filepath is remotely served
          }
      @endverbatim
-
-     @section distabsr Parallel Abstractions and Mechanisms
-     Across \a N different computer nodes, the file name resolution engine 
-     can turn a same local file name into \a N many different URIs
-     or a unique URI or somewhere in between. 
-     The unique URI resolution would imply that the application's I/O
-     on that file would potentially suffer performance degradation 
-     once the level of concurrent access on the file starts overwhelming 
-     the underlying file server's capability.  
-     On the other hand, with many different URIs, a problem related 
-     to consistency of those distributed files may arise. 
-     FGFS provides various parallel abstractions and algorithms 
-     that efficiently answer distributed properties related to such 
-     common issues.
-
-     TBD
     */
 
   namespace MountPointAttribute {
