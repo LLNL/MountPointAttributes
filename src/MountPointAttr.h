@@ -60,8 +60,8 @@ namespace FastGlobalFileStatus {
      @section intro Introduction
 
      Large-scale systems typically mount many different file systems with
-     distinct performance characteristics and capacity. Applications
-     must efficiently use this storage in order to realize their full performance
+     distinct performance characteristics and capacity. High performance computing 
+     applications must efficiently use this storage in order to realize their full performance
      potential. Users must take into account potential file replication throughout
      the storage hierarchy as well as contention in lower levels of the 
      I/O system, and must consider communicating the results of file I/O 
@@ -84,7 +84,7 @@ namespace FastGlobalFileStatus {
      scale, an improvement of several orders of magnitude 
      over the traditional checksum technique.
 
-     The main abstractions that enables raising the namespace of local file names
+     The main abstractions that enable raising the namespace of local file names
      are packaged up into the \c MountPointAttributes module.
 
      @section fnresol File Name Resolution Engine 
