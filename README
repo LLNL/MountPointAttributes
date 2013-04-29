@@ -38,13 +38,19 @@
     % ../configure --prefix=<your install path>
 
     
-    For Blue Gene /P Compute Node: 
+    For Blue Gene/Q Compute Node: 
+    % configure CXX=powerpc64-bgq-linux-g++ LDFLAGS="-dynamic" --prefix=<your install path>
+    Note that you should not use bgxlC when this module
+    is run on the I/O Nodes of Blue Gene
+
+
+    For Blue Gene/P Compute Node: 
     % configure CXX=bgxlC --prefix=<your install path>
     Note that you should not use bgxlC when this module
     is run on the I/O Nodes of Blue Gene
 
 
-    For Blue Gene /L Compute Node:
+    For Blue Gene/L Compute Node:
     % configure CXX=bgxlC LDFLAGS="-lnss_files -lnss_dns -lresolv -lc -lnss_files -lnss_dns -lresolv" --prefix=<your install path>
 
 
