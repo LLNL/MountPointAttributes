@@ -32,7 +32,7 @@
 
 lib_LTLIBRARIES              = libmpattr.la 
 
-INCLUDES                     = -I$(top_srcdir)
+AM_CPPFLAGS                  = -I$(top_srcdir)
 
 include_HEADERS              = MountPointAttrUri.h \
 			       MountPointAttr.h \
