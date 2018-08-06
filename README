@@ -2,6 +2,10 @@ Mount Point Attributes turns expensive, non-scalable file system calls into simp
 
 1. Configuration 
 
+    If building from the GIT repository first run:
+    % boostrap
+
+    
     % mkdir <platform> (e.g., RHEL6_x86_64_ib)
     % cd <platform>
     % ../configure --prefix=<your install path>
