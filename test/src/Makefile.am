@@ -34,7 +34,7 @@
 ##        May 23 2011 DHA: File created.
 ##
 
-INCLUDES                                 = -I$(top_srcdir)/src
+AM_CPPFLAGS                              = -I$(top_srcdir)/src
 
 testdir                                  = ${pkgdatadir}/tests
 test_PROGRAMS                            = test001_recursive_walk_remote \
