@@ -43,6 +43,7 @@ extern "C" {
 #include <mntent.h>
 #include <string.h>
 #include <stdio.h>
+#include <limits.h>
 }
 
 #include <string>
@@ -239,7 +240,7 @@ namespace FastGlobalFileStatus {
 
     const int BASE_FS_SPEED = 1;
     const int BASE_FS_SCALABILITY = 1;
-    const int INDIRECTION = -1;
+    const unsigned short INDIRECTION = USHRT_MAX;
 
 
     /**
